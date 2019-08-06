@@ -2,20 +2,12 @@
     <v-app>
         <v-navigation-drawer v-model="drawer" app >
             <v-list dense clipped>
-                <v-list-item to="/">
+                <v-list-item v-for="item in drawerItems" :key="item.path" :to="item.path">
                     <v-list-item-action>
-                        <v-icon>mdi-star</v-icon>
+                        <v-icon>{{ item.icon }}</v-icon>
                     </v-list-item-action>
                     <v-list-item-content>
-                        <v-list-item-title>Home</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-                <v-list-item to="/sign-in">
-                    <v-list-item-action>
-                        <v-icon>mdi-star</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title>Sign In</v-list-item-title>
+                        <v-list-item-title>{{ item.title }}</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
@@ -71,10 +63,39 @@ export default {
     },
 
     data: () => ({
-        drawer: null
+        drawer: null,
+        drawerItems: [
+            {
+                icon: 'mdi-home',
+                title: 'Home',
+                path: '/'
+            },
+            {
+                icon: 'mdi-food-apple',
+                title: 'Food',
+                path: '/food'
+            },
+            {
+                icon: 'mdi-run',
+                title: 'Sport',
+                path: '/sport'
+            }
+        ]
     }),
 
+    computed: {
+        ...mapGetters([
+            'session',
+            'username'
+        ]),
+    },
+
     methods: {
+         ...mapMutations([
+            'setSession',
+            'setUsername'
+        ]),
+
         handleDrawlerClick() {
             this.drawer = !this.drawer;
         },
