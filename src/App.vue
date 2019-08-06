@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <v-navigation-drawer v-model="drawer" app>
+        <v-navigation-drawer v-model="drawer" app >
             <v-list dense clipped>
                 <v-list-item to="/">
                     <v-list-item-action>
@@ -22,6 +22,8 @@
         </v-navigation-drawer>
 
         <v-app-bar app>
+            <v-app-bar-nav-icon @click.stop="handleDrawlerClick"></v-app-bar-nav-icon>
+
             <v-toolbar-title class="text-uppercase">
                 <span>Healthy Living</span>
             </v-toolbar-title>
@@ -70,6 +72,12 @@ export default {
 
     data: () => ({
         drawer: null
-    })
+    }),
+
+    methods: {
+        handleDrawlerClick() {
+            this.drawer = !this.drawer;
+        },
+    }
 };
 </script>
