@@ -1,6 +1,6 @@
 {
-  "name": "healthy-living",
-  "short_name": "healthy-living",
+  "name": "Healthy Living",
+  "short_name": "Healthy Living",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
@@ -15,6 +15,6 @@
   ],
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#4DBA87"
+  "background_color": "#ffffff",
+  "theme_color": "#388e3c"
 }
