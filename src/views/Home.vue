@@ -16,6 +16,7 @@
         <v-layout column mt-12>
             <v-flex xs12 text-center>
                 <v-btn @click="handleButtonClick" color="primary" large>
+                    <v-icon left>mdi-login</v-icon>
                     Sign In with Blockstack
                 </v-btn>
             </v-flex>
