@@ -99,6 +99,8 @@
                     if (json) {
                         this.items = JSON.parse(json);
                     }
+
+                    console.log('Food loaded from the blockchain.')
                 })
                 .catch((err) => {
                     console.error(err);
