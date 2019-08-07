@@ -60,16 +60,23 @@
 
                         <v-list-item
                             two-line
-                            v-for="(item, i) in items"
+                            v-for="(item, i) in itemList"
                             :key="i"
                         >
-                            <v-list-item-icon>
-                                <v-icon>mdi-food-apple</v-icon>
-                            </v-list-item-icon>
+                            <v-list-item-avatar>
+                                <v-icon>mdi-pencil</v-icon>
+                            </v-list-item-avatar>
+
                             <v-list-item-content>
                                 <v-list-item-title>{{ item.number + ' x ' + item.text }}</v-list-item-title>
                                 <v-list-item-subtitle>{{ item.number * item.calories }} calories</v-list-item-subtitle>
                             </v-list-item-content>
+
+                            <v-list-item-action>
+                                <v-btn icon @click="removeItem(item)">
+                                    <v-icon color="red">mdi-close</v-icon>
+                                </v-btn>
+                            </v-list-item-action>
                         </v-list-item>
                     </v-list>
                 </v-card>
@@ -79,22 +86,46 @@
 </template>
 
 <script>
+    import * as uniqid from 'uniqid';
+    import { mapGetters, mapMutations, mapActions } from "vuex";
+
     export default {
+        created() {
+            this.session.getFile(
+                '/food.txt',
+                {decrypt: true}
+            )
+                .then((json) => {
+                    if (json) {
+                        this.items = JSON.parse(json);
+                    }
+                })
+                .catch((err) => {
+                    console.error(err);
+                })
+            ;
+        },
+
         data: () => ({
             dialog: false,
+
             text: null,
             number: null,
             calories: null,
 
-            items: [
-                {
-                    number: 2,
-                    text: 'Burger',
-                    calories: 250,
-                    date: new Date()
-                }
-            ],
+            items: [],
         }),
+
+        computed: {
+            ...mapGetters([
+                'session',
+                'username'
+            ]),
+
+            itemList() {
+                return this.items;
+            }
+        },
 
         methods: {
             handleDialogSave() {
@@ -105,6 +136,7 @@
                 }
 
                 this.items.push({
+                    id: uniqid(),
                     number: this.number,
                     text: this.text,
                     calories: this.calories,
@@ -114,10 +146,35 @@
                 this.text = null;
                 this.number = null;
                 this.calories = null;
+
+                this.updateBlockchain();
             },
 
             handleDialogClose() {
                 this.dialog = false;
+            },
+
+            removeItem(item) {
+                this.items = this.items.filter((x) => {
+                    return x.id !== item.id;
+                });
+
+                this.updateBlockchain();
+            },
+
+            updateBlockchain() {
+                this.session.putFile(
+                    '/food.txt',
+                    JSON.stringify(this.items),
+                    {encrypt: true}
+                )
+                    .then(() => {
+                        console.log('Food saved on the blockchain.');
+                    })
+                    .catch((err) => {
+                        console.error(err);
+                    })
+                ;
             }
         }
     }
