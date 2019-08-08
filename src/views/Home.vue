@@ -145,18 +145,26 @@
 
         computed: {
             ...mapGetters([
-                'session'
+                'session',
+                'username'
             ]),
         },
 
         methods: {
+             ...mapMutations([
+                'setSession',
+                'setUsername'
+            ]),
+
             signIn() {
-                console.log(window.location.origin);
                 this.session.redirectToSignIn(window.location.origin);
             },
 
             signOut() {
                 this.session.signUserOut();
+
+                this.setSession(null);
+                this.setUsername(null);
             }
         }
     };

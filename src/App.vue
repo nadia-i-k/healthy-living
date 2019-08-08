@@ -57,7 +57,7 @@ export default {
         }
         else if (session.isSignInPending()) {
             session.handlePendingSignIn().then(userData => {
-                // window.location = window.location.origin;
+                window.location = window.location.origin;
             });
         }
     },
