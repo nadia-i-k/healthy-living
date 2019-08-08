@@ -165,6 +165,8 @@
 
                 this.setSession(null);
                 this.setUsername(null);
+
+                window.location = window.location.origin;
             }
         }
     };
