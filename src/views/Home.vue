@@ -15,7 +15,12 @@
 
         <v-layout column mt-12>
             <v-flex xs12 text-center>
-                <v-btn @click="handleButtonClick" color="primary" large>
+                <v-btn v-if="username" @click="signOut" color="primary" large>
+                    <v-icon left>mdi-login</v-icon>
+                    Sign Out
+                </v-btn>
+
+                <v-btn v-else @click="signIn" color="primary" large>
                     <v-icon left>mdi-login</v-icon>
                     Sign In with Blockstack
                 </v-btn>
@@ -145,8 +150,13 @@
         },
 
         methods: {
-            handleButtonClick() {
-                this.session.redirectToSignIn();
+            signIn() {
+                console.log(window.location.origin);
+                this.session.redirectToSignIn(window.location.origin);
+            },
+
+            signOut() {
+                this.session.signUserOut();
             }
         }
     };

@@ -44,8 +44,8 @@ export default {
     },
 
     created() {
-        const appConfig = new AppConfig(["store_write", "publish_data"]);
-        const session = new UserSession(appConfig);
+        const appConfig = new AppConfig(['store_write']);
+        const session = new UserSession({appConfig});
 
         this.setSession(session);
 
@@ -57,7 +57,7 @@ export default {
         }
         else if (session.isSignInPending()) {
             session.handlePendingSignIn().then(userData => {
-                window.location = window.location.origin;
+                // window.location = window.location.origin;
             });
         }
     },
