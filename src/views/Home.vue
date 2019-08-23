@@ -1,20 +1,20 @@
 <template>
     <v-container>
-        <v-layout text-center column>
-            <v-flex xs12>
+        <v-row class="text-center">
+            <v-col cols="12">
                 <v-img :src="require('../assets/logo.svg')" class="my-3" contain height="200"></v-img>
-            </v-flex>
+            </v-col>
 
-            <v-flex xs12>
+            <v-col cols="12">
                 <h1 class="display-2 font-weight-bold mb-3">Healthy Living</h1>
                 <p class="subheading font-weight-regular">
                     The most secure way to track your food intake and sport activity every day.
                 </p>
-            </v-flex>
-        </v-layout>
+            </v-col>
+        </v-row>
 
-        <v-layout column mt-12>
-            <v-flex xs12 text-center>
+        <v-row class="mt-12 text-center">
+            <v-col cols="12">
                 <v-btn v-if="username" @click="signOut" color="primary" large>
                     <v-icon left>mdi-login</v-icon>
                     Sign Out
@@ -24,18 +24,18 @@
                     <v-icon left>mdi-login</v-icon>
                     Sign In with Blockstack
                 </v-btn>
-            </v-flex>
-        </v-layout>
+            </v-col>
+        </v-row>
 
-        <v-layout column mt-12>
-            <v-flex xs12 text-center>
+        <v-row class="mt-12">
+            <v-col cols="12" class="text-center">
                 <h1 class="display-1">Why using this app?</h1>
-            </v-flex>
+            </v-col>
 
-            <v-container mt-4 grid-list-lg>
-                <v-layout wrap row>
-                    <v-flex xs12 md4>
-                        <v-card>
+            <v-container class="mt-4 grid-list-lg">
+                <v-row>
+                    <v-col xs="12" md="4">
+                        <v-card class="fill-height">
                             <v-img
                                 height="200px"
                                 :src="require('../assets/mobile.jpg')"
@@ -51,10 +51,10 @@
                                 </p>
                             </v-card-text>
                         </v-card>
-                    </v-flex>
+                    </v-col>
 
-                    <v-flex xs12 md4>
-                        <v-card>
+                    <v-col xs="12" md="4">
+                        <v-card class="fill-height">
                             <v-img
                                 height="200px"
                                 :src="require('../assets/security.jpg')"
@@ -67,10 +67,10 @@
                                 </p>
                             </v-card-text>
                         </v-card>
-                    </v-flex>
+                    </v-col>
 
-                    <v-flex xs12 md4>
-                        <v-card>
+                    <v-col xs="12" md="4">
+                        <v-card class="fill-height">
                             <v-img
                                 height="200px"
                                 :src="require('../assets/innovation.jpg')"
@@ -83,16 +83,16 @@
                                 </p>
                             </v-card-text>
                         </v-card>
-                    </v-flex>
-                </v-layout>
+                    </v-col>
+                </v-row>
             </v-container>
-        </v-layout>
+        </v-row>
 
-        <v-layout column mt-12>
-            <v-flex xs12>
-                <v-flex xs12 text-center>
-                    <h1 class="display-1">Frequently asked questions</h1>
-                </v-flex>
+        <v-row class="mt-12">
+            <v-col cols="12">
+                <h1 class="display-1 text-center">
+                    Frequently asked questions
+                </h1>
 
                 <v-expansion-panels class="mt-4">
                     <v-expansion-panel>
@@ -131,8 +131,8 @@
                         </v-expansion-panel-content>
                     </v-expansion-panel>
                 </v-expansion-panels>
-            </v-flex>
-        </v-layout>
+            </v-col>
+        </v-row>
 
     </v-container>
 </template>
