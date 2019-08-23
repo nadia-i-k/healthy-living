@@ -13,20 +13,6 @@
             </v-col>
         </v-row>
 
-        <!-- <v-row class="mt-12 text-center">
-            <v-col cols="12">
-                <v-btn v-if="username" @click="signOut" color="primary" large>
-                    <v-icon left>mdi-login</v-icon>
-                    Sign Out
-                </v-btn>
-
-                <v-btn v-else @click="signIn" color="primary" large>
-                    <v-icon left>mdi-login</v-icon>
-                    Sign In with Blockstack
-                </v-btn>
-            </v-col>
-        </v-row> -->
-
         <v-row class="mt-12">
             <v-col cols="12" class="text-center">
                 <h1 class="display-1">Why using this app?</h1>
@@ -154,20 +140,7 @@
              ...mapMutations([
                 'setSession',
                 'setUsername'
-            ]),
-
-            signIn() {
-                this.session.redirectToSignIn(window.location.origin);
-            },
-
-            signOut() {
-                this.session.signUserOut();
-
-                this.setSession(null);
-                this.setUsername(null);
-
-                window.location = window.location.origin;
-            }
+            ])
         }
     };
 </script>

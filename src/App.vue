@@ -22,9 +22,28 @@
 
             <v-spacer></v-spacer>
 
-            <!-- <v-btn text href="https://github.com/vuetifyjs/vuetify/releases/latest" target="_blank">
-                <span class="mr-2">Latest Release</span>
-            </v-btn> -->
+            <span v-if="username">
+                <v-chip @click="redirectToProfile" pill color="primary darken-1">
+                    <v-avatar
+                        left
+                        color="orange darken-3"
+                    >
+                        {{ username.charAt(0).toUpperCase() }}
+                    </v-avatar>
+                    {{ username }}
+                </v-chip>
+
+                <v-btn @click="signOut" large text class="ml-3">
+                    <v-icon left>mdi-login</v-icon>
+                    Sign Out
+                </v-btn>
+            </span>
+
+
+            <v-btn v-else @click="signIn" large text>
+                <v-icon left>mdi-login</v-icon>
+                Sign In with Blockstack
+            </v-btn>
         </v-app-bar>
 
         <v-content>
@@ -99,6 +118,23 @@ export default {
         handleDrawlerClick() {
             this.drawer = !this.drawer;
         },
+
+        signIn() {
+            this.session.redirectToSignIn(window.location.origin);
+        },
+
+        signOut() {
+            this.session.signUserOut();
+
+            this.setSession(null);
+            this.setUsername(null);
+
+            window.location = window.location.origin;
+        },
+
+        redirectToProfile() {
+            window.open('https://browser.blockstack.org/profiles', '_blank');
+        }
     }
 };
 </script>
