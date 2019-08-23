@@ -1,7 +1,7 @@
 <template>
     <v-container class="fill-height">
         <v-row justify="center" align="center">
-            <v-col cols="12" sm="8" md="5" lg="4">
+            <v-col cols="12" sm="8" md="6">
 
                 <v-card class="elevation-2">
                     <v-img :src="require('../assets/blockstack.png')" height="200px"></v-img>

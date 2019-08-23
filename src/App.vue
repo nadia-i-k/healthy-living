@@ -53,32 +53,12 @@
 </template>
 
 <script>
-import { AppConfig, UserSession } from "blockstack";
 import { mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
     name: "App",
 
     components: {
-    },
-
-    created() {
-        const appConfig = new AppConfig(['store_write']);
-        const session = new UserSession({appConfig});
-
-        this.setSession(session);
-
-        if (session.isUserSignedIn()) {
-            const userData = session.loadUserData();
-            const username = userData.username;
-
-            this.setUsername(username);
-        }
-        else if (session.isSignInPending()) {
-            session.handlePendingSignIn().then(userData => {
-                window.location = window.location.origin;
-            });
-        }
     },
 
     data: () => ({

@@ -1,16 +1,16 @@
 <template>
-  <v-container>
-        <v-layout>
-            <v-flex xs12 md6 offset-md3>
+    <v-container>
+        <v-row justify="center" align="center">
+            <v-col cols="12" md="6">
                 <h1>Food Intake</h1>
                 <p>Here you can view and log your food intake history including calories.</p>
-            </v-flex>
-        </v-layout>
+            </v-col>
+        </v-row>
 
-        <v-layout>
-            <v-flex xs12 md6 offset-md3>
+        <v-row justify="center" align="center">
+            <v-col cols="12" md="6">
 
-                <v-card tile>
+                <v-card tile class="elevation-2">
                     <v-dialog v-model="dialog" persistent max-width="600px">
                         <template v-slot:activator="{ on }">
                             <v-btn
@@ -80,8 +80,9 @@
                         </v-list-item>
                     </v-list>
                 </v-card>
-            </v-flex>
-        </v-layout>
+
+            </v-col>
+        </v-row>
     </v-container>
 </template>
 
@@ -97,7 +98,11 @@
             )
                 .then((json) => {
                     if (json) {
-                        this.items = JSON.parse(json);
+                        const data = JSON.parse(json);
+
+                        if (Array.isArray(data)) {
+                            this.items = data;
+                        }
                     }
 
                     console.log('Food loaded from the blockchain.')
