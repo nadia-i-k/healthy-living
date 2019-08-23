@@ -13,7 +13,7 @@
             </v-col>
         </v-row>
 
-        <v-row class="mt-12 text-center">
+        <!-- <v-row class="mt-12 text-center">
             <v-col cols="12">
                 <v-btn v-if="username" @click="signOut" color="primary" large>
                     <v-icon left>mdi-login</v-icon>
@@ -25,7 +25,7 @@
                     Sign In with Blockstack
                 </v-btn>
             </v-col>
-        </v-row>
+        </v-row> -->
 
         <v-row class="mt-12">
             <v-col cols="12" class="text-center">

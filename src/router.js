@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from './store';
 import Home from './views/Home.vue'
+import SignIn from './views/SignIn.vue'
 import Food from './views/Food.vue'
 import Sport from './views/Sport.vue'
 
@@ -14,15 +15,20 @@ const router = new Router({
     routes: [
         {
             path: '/',
-            name: 'home',
             component: Home,
             meta: {
                 protected: false
             }
         },
         {
+            path: '/sign-in',
+            component: SignIn,
+            meta: {
+                protected: false
+            }
+        },
+        {
             path: '/food',
-            name: 'food',
             component: Food,
             meta: {
                 protected: true
@@ -30,7 +36,6 @@ const router = new Router({
         },
         {
             path: '/sport',
-            name: 'sport',
             component: Sport,
             meta: {
                 protected: true
