@@ -46,7 +46,7 @@
             </v-btn>
         </v-app-bar>
 
-        <v-content>
+        <v-content class="b-content">
             <router-view />
         </v-content>
     </v-app>
@@ -138,3 +138,13 @@ export default {
     }
 };
 </script>
+
+<style lang="scss">
+    .b-content {
+        background: url('/img/bg-8.jpg') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+</style>
