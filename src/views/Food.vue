@@ -3,7 +3,7 @@
         <v-row justify="center" align="center">
             <v-col cols="12" md="6">
                 <h1>Food Intake</h1>
-                <p>Here you can view and log your food intake history including calories.</p>
+                <p>Here you can log your food intake including quantity and calories.</p>
             </v-col>
         </v-row>
 
@@ -55,32 +55,48 @@
                         </v-card>
                     </v-dialog>
 
-                    <v-list v-for="group in groups" :key="group.date">
-                        <v-subheader>{{ group.formattedDate }}</v-subheader>
-
-                        <v-list-item
-                            two-line
-                            v-for="(item, i) in group.items"
-                            :key="i"
+                    <div v-if="isLoading">
+                        <v-progress-linear
+                            indeterminate
+                            color="orange darken-3"
                         >
-                            <v-list-item-avatar>
-                                <v-icon color="primary">mdi-pencil</v-icon>
-                            </v-list-item-avatar>
+                        </v-progress-linear>
+                    </div>
 
-                            <v-list-item-content>
-                                <v-list-item-title>{{ item.number + ' x ' + item.text }}</v-list-item-title>
-                                <v-list-item-subtitle>{{ item.number * item.calories }} calories</v-list-item-subtitle>
-                            </v-list-item-content>
+                    <div v-else>
+                        <div v-if="items.length > 0">
+                            <v-list v-for="group in groups" :key="group.date">
+                                <v-subheader>{{ group.formattedDate }}</v-subheader>
 
-                            <v-list-item-action>
-                                <v-btn icon @click="removeItem(item)">
-                                    <v-icon color="red">mdi-close</v-icon>
-                                </v-btn>
-                            </v-list-item-action>
-                        </v-list-item>
-                    </v-list>
+                                <v-list-item
+                                    two-line
+                                    v-for="(item, i) in group.items"
+                                    :key="i"
+                                >
+                                    <v-list-item-avatar>
+                                        <v-icon color="primary">mdi-pencil</v-icon>
+                                    </v-list-item-avatar>
+
+                                    <v-list-item-content>
+                                        <v-list-item-title>{{ item.number + ' x ' + item.text }}</v-list-item-title>
+                                        <v-list-item-subtitle>{{ item.number * item.calories }} calories</v-list-item-subtitle>
+                                    </v-list-item-content>
+
+                                    <v-list-item-action>
+                                        <v-btn icon @click="removeItem(item)">
+                                            <v-icon color="red">mdi-close</v-icon>
+                                        </v-btn>
+                                    </v-list-item-action>
+                                </v-list-item>
+                            </v-list>
+                        </div>
+
+                        <div v-else>
+                            <p class="text-center subtitle pa-2">No food intake is logged yet.</p>
+                        </div>
+                    </div>
+
                 </v-card>
-
             </v-col>
         </v-row>
     </v-container>
@@ -106,15 +122,20 @@
                         }
                     }
 
+                    this.isLoading = false;
+
                     console.log('Food loaded from the blockchain.')
                 })
                 .catch((err) => {
+                    this.isLoading = false;
+
                     console.error(err);
                 })
             ;
         },
 
         data: () => ({
+            isLoading: true,
             dialog: false,
 
             text: null,
