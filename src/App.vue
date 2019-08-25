@@ -1,15 +1,89 @@
 <template>
     <v-app>
-        <v-navigation-drawer v-model="drawer" app >
+        <v-navigation-drawer
+            v-model="drawer"
+            app
+        >
+            <v-list-item>
+                <v-list-item-content>
+                    <v-list-item-title class="title">
+                        Navigation Menu
+                    </v-list-item-title>
+                    <v-list-item-subtitle>
+                        {{ currentDateFormatted }}
+                    </v-list-item-subtitle>
+                </v-list-item-content>
+            </v-list-item>
+
+            <v-divider></v-divider>
+
             <v-list dense clipped>
-                <v-list-item v-for="item in drawerItems" :key="item.path" :to="item.path">
+                <v-list-item to="/">
                     <v-list-item-action>
-                        <v-icon>{{ item.icon }}</v-icon>
+                        <v-icon>mdi-home</v-icon>
                     </v-list-item-action>
                     <v-list-item-content>
-                        <v-list-item-title>{{ item.title }}</v-list-item-title>
+                        <v-list-item-title>Home</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
+
+                <v-list-item to="/food">
+                    <v-list-item-action>
+                        <v-icon>mdi-food-apple</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title>Food</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
+                <v-list-item to="/sport">
+                    <v-list-item-action>
+                        <v-icon>mdi-run</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title>Sport</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
+                <v-list-item to="/dashboard">
+                    <v-list-item-action>
+                        <v-icon>mdi-view-dashboard</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title>Dashboard</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
+
+                <v-divider></v-divider>
+
+                <v-list-item>
+                    <v-list-item-action>
+                        <v-icon>mdi-account</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title>My Profile</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
+                <v-list-item>
+                    <v-list-item-action>
+                        <v-icon>mdi-logout</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title>Sign Out</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
+                <v-list-item>
+                    <v-list-item-action>
+                        <v-icon>mdi-login</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title>Sign In</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
             </v-list>
         </v-navigation-drawer>
 
@@ -22,28 +96,33 @@
 
             <v-spacer></v-spacer>
 
-            <span v-if="username">
-                <v-chip @click="redirectToProfile" pill color="primary darken-1">
-                    <v-avatar
-                        left
-                        color="orange darken-3"
+            <span class="d-none d-sm-inline-flex">
+                <span v-if="username">
+                    <v-chip
+                        @click="redirectToProfile"
+                        pill
+                        color="primary darken-1"
                     >
-                        {{ username.charAt(0).toUpperCase() }}
-                    </v-avatar>
-                    {{ username }}
-                </v-chip>
+                        <v-avatar
+                            left
+                            color="orange darken-3"
+                        >
+                            {{ usernameFirstLetter }}
+                        </v-avatar>
+                        {{ username }}
+                    </v-chip>
 
-                <v-btn @click="signOut" large text class="ml-3">
+                    <v-btn @click="signOut" large text class="ml-3">
+                        <v-icon left>mdi-login</v-icon>
+                        Sign Out
+                    </v-btn>
+                </span>
+
+                <v-btn v-else @click="signIn" large text>
                     <v-icon left>mdi-login</v-icon>
-                    Sign Out
+                    Sign In with Blockstack
                 </v-btn>
             </span>
-
-
-            <v-btn v-else @click="signIn" large text>
-                <v-icon left>mdi-login</v-icon>
-                Sign In with Blockstack
-            </v-btn>
         </v-app-bar>
 
         <v-content class="b-content">
@@ -53,7 +132,8 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapActions } from "vuex";
+import {mapGetters, mapMutations, mapActions} from "vuex";
+import dayjs from 'dayjs';
 
 export default {
     name: "App",
@@ -62,24 +142,7 @@ export default {
     },
 
     data: () => ({
-        drawer: null,
-        drawerItems: [
-            {
-                icon: 'mdi-home',
-                title: 'Home',
-                path: '/'
-            },
-            {
-                icon: 'mdi-food-apple',
-                title: 'Food',
-                path: '/food'
-            },
-            {
-                icon: 'mdi-run',
-                title: 'Sport',
-                path: '/sport'
-            }
-        ]
+        drawer: null
     }),
 
     computed: {
@@ -87,6 +150,14 @@ export default {
             'session',
             'username'
         ]),
+
+        usernameFirstLetter() {
+            return this.username.charAt(0).toUpperCase();
+        },
+
+        currentDateFormatted() {
+            return dayjs().format('dddd, D MMMM');
+        }
     },
 
     methods: {
@@ -121,7 +192,7 @@ export default {
 
 <style lang="scss">
     .b-content {
-        background: url('/img/bg-8.jpg') no-repeat center center fixed;
+        background: url('/img/bg-1.jpg') no-repeat center center fixed;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
