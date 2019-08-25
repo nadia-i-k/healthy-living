@@ -93,7 +93,7 @@
                 let date = dayjs().subtract(6, 'day');
 
                 for (let i=0; i < 7; i++) {
-                    const dateFormatted = date.format('dddd, D MMMM');
+                    const dateFormatted = date.format('YYYY-MM-DD');
                     date = date.add(1, 'day');
 
                     map[dateFormatted] = {
@@ -104,13 +104,13 @@
 
                 for (const group of foodGroups) {
                     for (const item of group.items) {
-                        map[group.formattedDate].eaten += item.number * item.calories;
+                        map[group.date].eaten += item.number * item.calories;
                     }
                 }
 
                 for (const group of sportGroups) {
                     for (const item of group.items) {
-                        map[group.formattedDate].burned += item.calories;
+                        map[group.date].burned += item.calories;
                     }
                 }
 
@@ -119,7 +119,7 @@
                 const sportData = [];
 
                 for (const date in map) {
-                    labels.push(date);
+                    labels.push(dayjs(date).format('ddd, D MMM'));
                     foodData.push(map[date].eaten);
                     sportData.push(map[date].burned);
                 }
