@@ -104,13 +104,17 @@
 
                 for (const group of foodGroups) {
                     for (const item of group.items) {
-                        map[group.date].eaten += item.number * item.calories;
+                        if (group.date in map) {
+                            map[group.date].eaten += item.number * item.calories;
+                        }
                     }
                 }
 
                 for (const group of sportGroups) {
                     for (const item of group.items) {
-                        map[group.date].burned += item.calories;
+                        if (group.date in map) {
+                            map[group.date].burned += item.calories;
+                        }
                     }
                 }
 
