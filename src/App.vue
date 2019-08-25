@@ -57,7 +57,7 @@
 
                 <v-divider></v-divider>
 
-                <v-list-item>
+                <v-list-item @click="redirectToProfile">
                     <v-list-item-action>
                         <v-icon>mdi-account</v-icon>
                     </v-list-item-action>
@@ -66,7 +66,7 @@
                     </v-list-item-content>
                 </v-list-item>
 
-                <v-list-item>
+                <v-list-item v-if="username" @click="signOut">
                     <v-list-item-action>
                         <v-icon>mdi-logout</v-icon>
                     </v-list-item-action>
@@ -75,7 +75,7 @@
                     </v-list-item-content>
                 </v-list-item>
 
-                <v-list-item>
+                <v-list-item v-else @click="signIn">
                     <v-list-item-action>
                         <v-icon>mdi-login</v-icon>
                     </v-list-item-action>
@@ -113,7 +113,7 @@
                     </v-chip>
 
                     <v-btn @click="signOut" large text class="ml-3">
-                        <v-icon left>mdi-login</v-icon>
+                        <v-icon left>mdi-logout</v-icon>
                         Sign Out
                     </v-btn>
                 </span>
