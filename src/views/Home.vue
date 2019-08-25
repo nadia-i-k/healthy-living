@@ -7,7 +7,7 @@
 
             <v-col cols="12">
                 <h1 class="display-2 font-weight-bold mb-3">Healthy Living</h1>
-                <p class="subheading font-weight-regular">
+                <p class="title font-weight-regular">
                     The most secure way to track your food intake and sport activity every day.
                 </p>
             </v-col>
