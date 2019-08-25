@@ -5,6 +5,7 @@ import Home from './views/Home.vue'
 import SignIn from './views/SignIn.vue'
 import Food from './views/Food.vue'
 import Sport from './views/Sport.vue'
+import Dashboard from './views/Dashboard.vue'
 
 Vue.use(Router)
 
@@ -37,6 +38,13 @@ const router = new Router({
         {
             path: '/sport',
             component: Sport,
+            meta: {
+                protected: true
+            }
+        },
+        {
+            path: '/dashboard',
+            component: Dashboard,
             meta: {
                 protected: true
             }
