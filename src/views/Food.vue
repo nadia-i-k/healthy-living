@@ -38,10 +38,10 @@
                                             <v-text-field v-model="text" label="Food description" required></v-text-field>
                                         </v-flex>
                                         <v-flex xs12 md6>
-                                            <v-text-field v-model="number" label="Number of food items" type="number" value="1" required></v-text-field>
+                                            <v-text-field v-model="number" label="Number of food items" type="number" required></v-text-field>
                                         </v-flex>
                                         <v-flex xs12 md6>
-                                            <v-text-field v-model="calories" label="Number of calories per food item" type="number" value="0" required></v-text-field>
+                                            <v-text-field v-model="calories" label="Number of calories per food item" type="number" required></v-text-field>
                                         </v-flex>
                                     </v-layout>
                                 </v-container>
@@ -79,7 +79,7 @@
 
                                     <v-list-item-content>
                                         <v-list-item-title>{{ item.number + ' x ' + item.text }}</v-list-item-title>
-                                        <v-list-item-subtitle>{{ item.number * item.calories }} calories</v-list-item-subtitle>
+                                        <v-list-item-subtitle>{{ item.number * item.calories }} calories consumed</v-list-item-subtitle>
                                     </v-list-item-content>
 
                                     <v-list-item-action>
@@ -138,9 +138,9 @@
             isLoading: true,
             dialog: false,
 
-            text: null,
-            number: null,
-            calories: null,
+            text: '',
+            number: 1,
+            calories: 100,
 
             items: [],
         }),
@@ -164,7 +164,7 @@
             handleDialogSave() {
                 this.dialog = false;
 
-                if (!this.text || !this.number || !this.calories) {
+                if (!this.text.length > 0 || !this.number || !this.calories) {
                     return;
                 }
 
@@ -176,9 +176,9 @@
                     date: new Date()
                 });
 
-                this.text = null;
-                this.number = null;
-                this.calories = null;
+                this.text = '';
+                this.number = 1;
+                this.calories = 100;
 
                 this.updateBlockchain();
             },

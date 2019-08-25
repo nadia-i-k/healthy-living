@@ -28,20 +28,20 @@
 
                         <v-card>
                             <v-card-title>
-                                <span class="headline">Log food intake</span>
+                                <span class="headline">Log sport activity</span>
                             </v-card-title>
 
                             <v-card-text>
                                 <v-container grid-list-md>
                                     <v-layout wrap>
                                         <v-flex xs12>
-                                            <v-text-field v-model="text" label="Food description" required></v-text-field>
+                                            <v-text-field v-model="text" label="Activity description" required></v-text-field>
                                         </v-flex>
                                         <v-flex xs12 md6>
-                                            <v-text-field v-model="number" label="Number of food items" type="number" value="1" required></v-text-field>
+                                            <v-text-field v-model="time" label="Minutes" type="number" value="0" required></v-text-field>
                                         </v-flex>
                                         <v-flex xs12 md6>
-                                            <v-text-field v-model="calories" label="Number of calories per food item" type="number" value="0" required></v-text-field>
+                                            <v-text-field v-model="calories" label="Calories burned" type="number" value="0" required></v-text-field>
                                         </v-flex>
                                     </v-layout>
                                 </v-container>
@@ -78,8 +78,8 @@
                                     </v-list-item-avatar>
 
                                     <v-list-item-content>
-                                        <v-list-item-title>{{ item.number + ' x ' + item.text }}</v-list-item-title>
-                                        <v-list-item-subtitle>{{ item.number * item.calories }} calories</v-list-item-subtitle>
+                                        <v-list-item-title>{{ item.text }}</v-list-item-title>
+                                        <v-list-item-subtitle>Burned {{ item.calories }} calories in {{ item.time }} minutes</v-list-item-subtitle>
                                     </v-list-item-content>
 
                                     <v-list-item-action>
@@ -121,12 +121,11 @@
                         if (Array.isArray(data)) {
                             this.items = data;
                         }
-
                     }
 
                     this.isLoading = false;
 
-                    console.log('Food loaded from the blockchain.')
+                    console.log('Sport loaded from the blockchain.')
                 })
                 .catch((err) => {
                     console.error(err);
@@ -140,9 +139,9 @@
             isLoading: true,
             dialog: false,
 
-            text: null,
-            number: null,
-            calories: null,
+            text: '',
+            time: 30,
+            calories: 200,
 
             items: [],
         }),
@@ -166,21 +165,21 @@
             handleDialogSave() {
                 this.dialog = false;
 
-                if (!this.text || !this.number || !this.calories) {
+                if (!this.text.length > 0 || !this.time || !this.calories) {
                     return;
                 }
 
                 this.items.push({
                     id: uniqid(),
-                    number: this.number,
+                    time: this.time,
                     text: this.text,
                     calories: this.calories,
                     date: new Date()
                 });
 
-                this.text = null;
-                this.number = null;
-                this.calories = null;
+                this.text = '';
+                this.time = 0;
+                this.calories = 0;
 
                 this.updateBlockchain();
             },
@@ -199,12 +198,12 @@
 
             updateBlockchain() {
                 this.session.putFile(
-                    '/food.txt',
+                    '/sport.txt',
                     JSON.stringify(this.items),
                     {encrypt: true}
                 )
                     .then(() => {
-                        console.log('Food saved on the blockchain.');
+                        console.log('Sport saved on the blockchain.');
                     })
                     .catch((err) => {
                         console.error(err);
