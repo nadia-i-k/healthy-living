@@ -55,16 +55,16 @@
                         </v-card>
                     </v-dialog>
 
-                    <v-list>
-                        <!-- <v-subheader>Monday</v-subheader> -->
+                    <v-list v-for="group in groups" :key="group.date">
+                        <v-subheader>{{ group.formattedDate }}</v-subheader>
 
                         <v-list-item
                             two-line
-                            v-for="(item, i) in itemList"
+                            v-for="(item, i) in group.items"
                             :key="i"
                         >
                             <v-list-item-avatar>
-                                <v-icon>mdi-pencil</v-icon>
+                                <v-icon color="primary">mdi-pencil</v-icon>
                             </v-list-item-avatar>
 
                             <v-list-item-content>
@@ -89,6 +89,7 @@
 <script>
     import * as uniqid from 'uniqid';
     import { mapGetters, mapMutations, mapActions } from "vuex";
+    import groupUtility from "../utilities/group";
 
     export default {
         created() {
@@ -128,6 +129,10 @@
                 'session',
                 'username'
             ]),
+
+            groups() {
+                return groupUtility.getGroupsByDate(this.items);
+            },
 
             itemList() {
                 return this.items;
