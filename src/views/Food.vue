@@ -79,7 +79,7 @@
 
                                     <v-list-item-content>
                                         <v-list-item-title>{{ item.number + ' x ' + item.text }}</v-list-item-title>
-                                        <v-list-item-subtitle>{{ item.number * item.calories }} calories consumed</v-list-item-subtitle>
+                                        <v-list-item-subtitle>Consumed {{ item.number * item.calories }} calories</v-list-item-subtitle>
                                     </v-list-item-content>
 
                                     <v-list-item-action>
