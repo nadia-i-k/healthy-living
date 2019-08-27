@@ -1,6 +1,6 @@
 # Healthy Living
 
-![Drag Racing](./public/img/icons/android-icon-192x192.png)
+![Logo](./public/img/icons/android-icon-192x192.png)
 
 Healthy Living is a Dapp based on Blockstack that enables users to keep track of their food intake and sport activities every day. It is a user-friendly and delightful Dapp that gives you 100% control over your own private data.
 
